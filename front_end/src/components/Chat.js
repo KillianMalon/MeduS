@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Chat.css';  
 
-const ChatApp = () => {
+const Chat = () => {
     const [messages, setMessages] = useState([
         {
             avatar: "https://img.icons8.com/color/36/000000/administrator-male.png",
@@ -14,10 +14,10 @@ const ChatApp = () => {
             time: "00:06",
             isReverse: true,
         },
-
     ]);
 
     const [newMessage, setNewMessage] = useState("");
+    const chatContentRef = useRef(null);
 
     const handleSendMessage = (e) => {
         e.preventDefault();
@@ -27,18 +27,25 @@ const ChatApp = () => {
         }
     };
 
+    useEffect(() => {
+        // Scroll automatiquement en bas après chaque nouveau message
+        if (chatContentRef.current) {
+            chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+        }
+    }, [messages]);
+
     return (
         <div className="page-content page-container" id="page-content">
             <div className="padding">
                 <div className="row container d-flex justify-content-center">
                     <div className="col-md-6">
                         <div className="card card-bordered">
-                            <div className="card-header">
-                                <h4 className="card-title"><strong>Chat</strong></h4>
-                                <a className="btn btn-xs btn-secondary" href="#" data-abc="true">Let's Chat App</a>
-                            </div>
-
-                            <div className="ps-container ps-theme-default ps-active-y" id="chat-content" style={{ overflowY: 'scroll', height: '400px' }}>
+                            <div
+                                className="ps-container ps-theme-default ps-active-y"
+                                id="chat-content"
+                                style={{ overflowY: 'auto', height: '400px' }}
+                                ref={chatContentRef}
+                            >
                                 {messages.map((message, index) => (
                                     <div key={index} className={`media media-chat ${message.isReverse ? "media-chat-reverse" : ""}`}>
                                         {message.avatar && <img className="avatar" src={message.avatar} alt="avatar" />}
@@ -59,6 +66,9 @@ const ChatApp = () => {
                                     placeholder="Write something"
                                     value={newMessage}
                                     onChange={(e) => setNewMessage(e.target.value)}
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter') handleSendMessage(e);
+                                    }}
                                 />
                                 <span className="publisher-btn file-group">
                                     <i className="fa fa-paperclip file-browser"></i>
@@ -75,4 +85,4 @@ const ChatApp = () => {
     );
 };
 
-export default ChatApp;
+export default Chat;
