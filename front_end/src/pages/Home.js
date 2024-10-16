@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Chat from '../components/Chat';
-import '../styles/App.css'
+import '../styles/App.css';
 
 const Home = () => {
     // État pour les posts
@@ -15,6 +15,7 @@ const Home = () => {
     const handlePostSubmit = (e) => {
         e.preventDefault();
         const newPostData = {
+            author: "Moi",  // Nom par défaut de l'utilisateur
             content: newPost,
             timestamp: new Date().toLocaleString(),
         };
@@ -38,15 +39,13 @@ const Home = () => {
 
     return (
         <main>
+            <h2>Fil d'actualités</h2>
+            <div class="post">
+                <h3>Événements à venir</h3>
+                <p>Ne manquez pas nos événements étudiants ce mois-ci !</p>
+                <button>Voir tous les événements</button>
+            </div>
 
-<h2>Fil d'actualités</h2>
-                <div class="post">
-            
-                    <h3>Événements à venir</h3>
-                    <p>Ne manquez pas nos événements étudiants ce mois-ci !</p>
-                    <button>Voir tous les événements</button>
-                </div>
-            
             {/* Section pour ajouter un post */}
             <section className="create-post">
                 <h2>Ajouter un post</h2>
@@ -64,11 +63,11 @@ const Home = () => {
             {/* Affichage des posts */}
             <section className="content">
                 <div className="feed">
-    
                     <h2>Derniers posts</h2>
                     {posts.length > 0 ? (
                         posts.map((post, index) => (
                             <div key={index} className="post">
+                                <h4>{post.author}</h4> {/* Afficher le nom de l'auteur */}
                                 <p>{post.content}</p>
                                 <span>{post.timestamp}</span>
                             </div>
@@ -97,8 +96,12 @@ const Home = () => {
                         <h2>Chat en direct</h2>
 
                         <Chat />
- 
+
+                        
+
                     </section>
+
+                    
                 </div>
             </section>
         </main>

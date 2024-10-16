@@ -12,16 +12,13 @@
     transition: .5s;
 }
 
-
-
 body {
-    background-color: #f9f9fa
+    background-color: #f9f9fa;
 }
 
 .card-header:first-child {
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
 }
-
 
 .card-header {
     display: -webkit-box;
@@ -65,22 +62,18 @@ h4.card-title {
     padding: 2px 8px;
     line-height: 18px;
 }
-.btn-xs:hover{
-    color:#fff !important;
+.btn-xs:hover {
+    color: #fff !important;
 }
 
-
-
-
 .card-title {
-    font-family: Roboto,sans-serif;
+    font-family: Roboto, sans-serif;
     font-weight: 300;
     line-height: 1.5;
     margin-bottom: 0;
     padding: 15px 20px;
     border-bottom: 1px solid rgba(77,82,89,0.07);
 }
-
 
 .ps-container {
     position: relative;
@@ -94,8 +87,9 @@ h4.card-title {
 }
 
 .media-chat {
-    padding-right: 64px;
+    padding: 0; /* Enlève le padding par défaut */
     margin-bottom: 0;
+    display: flex; /* Assurez-vous que le conteneur utilise flexbox */
 }
 
 .media {
@@ -122,13 +116,12 @@ h4.card-title {
 }
 
 .media-chat .media-body {
-    -webkit-box-flex: initial;
-    flex: initial;
-    display: table;
+    flex-grow: 1; /* Prend l'espace disponible */
+    padding: 8px; /* Vous pouvez ajouter un padding interne pour l'esthétique */
 }
 
 .media-body {
-    min-width: 0;
+    flex: 1; /* Prend l'espace disponible */
 }
 
 .media-chat .media-body p {
@@ -138,7 +131,7 @@ h4.card-title {
     background-color: #f5f6f7;
     border-radius: 3px;
     font-weight: 100;
-    color:#9b9b9b;
+    color: #9b9b9b;
 }
 
 .media>* {
@@ -172,7 +165,8 @@ h4.card-title {
     margin-right: 16px;
 }
 
-.media-meta-day::before, .media-meta-day::after {
+.media-meta-day::before,
+.media-meta-day::after {
     content: '';
     -webkit-box-flex: 1;
     flex: 1 1;
@@ -191,22 +185,8 @@ h4.card-title {
 }
 
 .media-chat.media-chat-reverse {
-    padding-right: 12px;
-    padding-left: 64px;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-    flex-direction: row-reverse;
-}
-
-.media-chat {
-    padding-right: 64px;
-    margin-bottom: 0;
-}
-
-.media {
-    padding: 16px 12px;
-    -webkit-transition: background-color .2s linear;
-    transition: background-color .2s linear;
+    padding: 0; /* Enlève le padding par défaut */
+    flex-direction: row-reverse; /* Assurez-vous que l'ordre des éléments est inversé si nécessaire */
 }
 
 .media-chat.media-chat-reverse .media-body p {
@@ -215,15 +195,6 @@ h4.card-title {
     background-color: #48b0f7;
     color: #fff;
 }
-
-.media-chat .media-body p {
-    position: relative;
-    padding: 6px 8px;
-    margin: 4px 0;
-    background-color: #f5f6f7;
-    border-radius: 3px;
-}
-
 
 .border-light {
     border-color: #f1f2f3 !important;
@@ -259,8 +230,12 @@ h4.card-title {
     background-color: transparent;
 }
 
-button, input, optgroup, select, textarea {
-    font-family: Roboto,sans-serif;
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: Roboto, sans-serif;
     font-weight: 300;
 }
 
@@ -278,7 +253,7 @@ button, input, optgroup, select, textarea {
 .file-group {
     position: relative;
     overflow: hidden;
-} 
+}
 
 .publisher-btn {
     background-color: transparent;
@@ -289,7 +264,7 @@ button, input, optgroup, select, textarea {
     overflow: -moz-hidden-unscrollable;
     -webkit-transition: .2s linear;
     transition: .2s linear;
-} 
+}
 
 .file-group input[type="file"] {
     position: absolute;
