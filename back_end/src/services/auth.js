@@ -1,5 +1,4 @@
-import { Op } from 'sequelize'
-import { User } from '../models/user.js'
+import  UserModel  from '../models/user.js'
 import { Conflict, NotFound } from '../globals/errors.js'
 import JWTService from './jwt.js'
 import { encrypt, decrypt } from '../helpers/encryption.js'
@@ -15,32 +14,32 @@ export default class AuthService {
   }
 
   async signup ({ fields }) {
-    const userExist = await User.findOne({ where: { [Op.or]: [{ email_user: fields.email_user }, { phone_user: fields.phone_user }] } })
+    const userExist = await UserModel.findOne({ email_user: fields.email_user })
     if (userExist) {
       throw new Conflict('Email ou Téléphone déjà utilisés.')
     }
     fields.password_user = encrypt(fields.password_user)
-    const user = await User.create({ ...fields })
-    const jwt = await JWTServiceInstance.generate({ id: user.user_id })
-    const data = { jwt, id: user.user_id }
-    return data
+    const user = await UserModel.create({ ...fields })
+    const jwt = await JWTServiceInstance.generate({ user })
+    return jwt
   }
 
   async login ({ email, password }) {
-    const user = await User.findOne({ where: { email_user: email } })
+    const user = await UserModel.findOne({ email_user: email })
     if (!user) {
       throw new Conflict('Identifiant ou mot de passe incorrect.')
     }
     if (decrypt(user.password_user) !== password) {
       throw new Conflict('Identifiant ou mot de passe incorrect.')
     }
-    const jwt = await JWTServiceInstance.generate({ id: user.user_id })
-    const data = { jwt, id: user.user_id }
+    console.log(user);
+    const jwt = await JWTServiceInstance.generate({ id: user._id })
+    const data = { jwt, id: user._id }
     return data
   }
 
   async getUser ({ id }) {
-    const user = await User.findByPk(id)
+    const user = await UserModel.findById({ _id: id })
     if (!user) {
       throw new NotFound('Utilisateur introuvable.')
     }
@@ -48,11 +47,11 @@ export default class AuthService {
   }
 
   async logout ({ id }) {
-    const user = await User.findByPk(id)
+    const user = await UserModel.findById({ _id: id })
     if (!user) {
       throw new NotFound('Utilisateur introuvable.')
     }
-    const jwt = JWTServiceInstance.removeAll(user.user_id)
+    const jwt = JWTServiceInstance.removeAll(user)
     return jwt
   }
 }

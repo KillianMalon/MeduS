@@ -13,7 +13,7 @@ const Login = () => {
         e.preventDefault();
 
          // Envoi d'une requête POST à l'API pour la connexion
-        const response = await fetch("http://localhost:7000/login", {
+        const response = await fetch("http://localhost:8082/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email: email.toLowerCase(), password }),
@@ -31,6 +31,8 @@ const Login = () => {
               case 500:
                 alert("Erreur serveur")
                 break
+            default:
+                alert("Erreur inconnue")
 
           }
     };

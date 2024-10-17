@@ -1,21 +1,24 @@
-import mongoose from 'mongoose';
+import {model, Schema} from "mongoose";
 
-const pictureSchema = new mongoose.Schema({
-  feedback_id: {
-    type: mongoose.Schema.Types.ObjectId, // Référence potentielle à un autre document (si feedback_id correspond à un document MongoDB)
-    ref: 'Feedback'
+const pictureSchema = new Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
-  plant_id: {
-    type: mongoose.Schema.Types.ObjectId, // Référence potentielle à un autre document (si plant_id correspond à un document MongoDB)
-    ref: 'Plant'
+  imageUrl: {
+    type: String, // Stocke l'URL de l'image (peut être sur un service de stockage comme S3)
+    required: true
   },
-  picture_path: {
-    type: String,
-    maxlength: 255
+  isProfileImage: {
+    type: Boolean,
+    default: false // Pour savoir si cette image est actuellement utilisée comme image de profil
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
-}, {
-  collection: 'PICTURE', // Nom de la collection dans MongoDB
-  timestamps: false // On désactive la gestion des timestamps
 });
 
 export default model('Picture', pictureSchema);
+

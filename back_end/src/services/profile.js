@@ -1,44 +1,50 @@
-import { NotFound, Unauthorized } from '../globals/errors.js'
-import { User } from '../models/user.js'
+import { NotFound, Unauthorized } from '../globals/errors.js';
+import User from '../models/user.js';
 
 export default class UserService {
-  constructor () {
+  constructor() {
     if (UserService.instance instanceof UserService) {
-      return UserService.instance
+      return UserService.instance;
     }
-    Object.freeze(this)
-    UserService.instance = this
+    Object.freeze(this);
+    UserService.instance = this;
   }
 
-  async getProfileById (userId) {
-    const user = await User.findByPk(userId)
+  async getProfileById(userId) {
+    const user = await User.findById(userId); // MongoDB utilise findById
     if (!user) {
-      throw new NotFound('Le profil n\'existe pas.')
+      throw new NotFound('Le profil n\'existe pas.');
     }
-    return user
+    return user;
   }
 
-  async putProfileById ({ fields, userId }) {
-    const user = await User.findByPk(userId)
+  async putProfileById({ fields, userId }) {
+    const user = await User.findById(userId); 
     if (!user) {
-      throw new NotFound('Le profil n\'existe pas.')
+      throw new NotFound('Le profil n\'existe pas.');
     }
-    if (user.user_id !== userId) {
-      throw new Unauthorized('Vous n\'êtes pas le propriétaire de ce profil.')
-    }
-    await user.update(fields)
-    await user.save()
-    return user
+    // Pas besoin de vérifier user.user_id, MongoDB n'a pas cette distinction
+    Object.assign(user, fields); // Mise à jour des champs avec les nouvelles valeurs
+    await user.save();
+    return user;
   }
 
-  async deleteProfileById ({ userId }) {
-    const user = await User.findByPk(userId)
+  async deleteProfileById({ userId }) {
+    const user = await User.findById(userId);
     if (!user) {
-      throw new NotFound('Le profil n\'existe pas.')
+      throw new NotFound('Le profil n\'existe pas.');
     }
-    if (user.user_id !== userId) {
-      throw new Unauthorized('Vous n\'êtes pas le propriétaire de ce profil.')
+    await User.findByIdAndDelete(userId); // Supprimer l'utilisateur par son _id
+  }
+
+  async getProfileByEmail(email) {
+    // Recherche l'utilisateur par email
+    const user = await User.findOne({ email_user: email });
+    
+    if (!user) {
+      throw new NotFound('Le profil n\'existe pas.');
     }
-    await User.destroy({ where: { user_id: userId } })
+    
+    return user;
   }
 }
