@@ -85,4 +85,15 @@ export default class PostController {
       res.status(500).json({ message: 'Erreur lors du retrait du like', error: error.message });
     }
   }
+
+  // Récupérer tous les posts d'un utilisateur par ID
+  static async getPostsByUserId(req, res) {
+    try {
+      const userId = req.jwt.data.id; // ID de l'utilisateur via JWT
+      const posts = await postService.getPostsByUserId(userId); // Appel à la méthode du service
+      res.status(200).json(posts); // Retourner les posts
+    } catch (error) {
+      res.status(500).json({ message: 'Erreur lors de la récupération des posts de l\'utilisateur', error: error.message });
+    }
+  }
 }

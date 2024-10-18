@@ -25,4 +25,6 @@ router.post('/posts/:id/like', jwt.verify, PostController.likePost);
 // Route pour retirer un like d'un post
 router.post('/posts/:id/unlike', jwt.verify, PostController.unlikePost);
 
+router.get('/posts/postsByUserId/:userId', jwt.verify, PostController.getPostsByUserId)
+
 export default router;

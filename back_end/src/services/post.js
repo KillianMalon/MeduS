@@ -106,4 +106,13 @@ export default class PostService {
     await post.save();
     return post;
   }
+
+  async getPostsByUserId(userId) {
+    try {
+      const posts = await Post.find({ user: userId }); // Supposant que tu utilises Mongoose
+      return posts;
+    } catch (error) {
+      throw new Error('Erreur lors de la récupération des posts de l\'utilisateur');
+    }
+  }
 }

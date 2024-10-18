@@ -13,13 +13,12 @@ import './styles/App.css';
 
 function App() {
     return (
-        <AuthProvider>
-            <Router>
+        <Router>
+            <AuthProvider>
                 <div className="App">
                     <Header />
                     <Routes>
                         <Route path="/" exact element={<Home />} />
-                        {/* <Route path="/home" exact element={<Home />} /> */}
                         <Route path="/login" element={<Login />} /> 
                         <Route path="/signup" element={<Signup />} />
                         <Route path="/profile" element={<Profile />} />
@@ -28,8 +27,8 @@ function App() {
                     </Routes>
                     <Footer />
                 </div>
-            </Router>
-        </AuthProvider>
+            </AuthProvider>
+        </Router>
     );
 }
 

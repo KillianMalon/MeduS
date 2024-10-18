@@ -6,15 +6,15 @@ import imageEvents from '../components/istockphoto-1338737959-1024x1024.jpg';
 import { AuthContext } from '../context/AuthContext';
 
 const Home = () => {
-    const { connected } = useContext(AuthContext); // Récupérer l'état connecté depuis AuthContext
+    const { token } = useContext(AuthContext); // Récupérer l'état connecté depuis AuthContext
     const navigate = useNavigate(); // Hook pour rediriger l'utilisateur
 
     // Utiliser useEffect pour rediriger si l'utilisateur n'est pas connecté
     useEffect(() => {
-        if (!connected) {
+        if (!token) {
             navigate('/login'); // Redirection vers la page de connexion si non connecté
         }
-    }, [connected, navigate]); // Déclencher l'effet si connected change
+    }, [token, navigate]); // Déclencher l'effet si token change
 
     // État pour les posts
     const [newPost, setNewPost] = useState('');
