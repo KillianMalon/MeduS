@@ -43,6 +43,7 @@ Clonez le projet depuis GitHub :
 ```bash
 git clone https://github.com/5hiroe/API-AROSAGE.git
 cd API-AROSAGE
+```
 ### 2. Installation des dépendances
 
 #### Front-end (React)
@@ -52,7 +53,7 @@ Accédez au dossier **front-end** et installez les dépendances :
 ```bash
 cd front-end
 npm install
-
+```
 #### Back-end (Express et Node.js)
 
 Accédez au dossier **back-end** et installez les dépendances :
@@ -60,6 +61,7 @@ Accédez au dossier **back-end** et installez les dépendances :
 ```bash
 cd back-end
 npm install
+```
 
 ### 3. Configuration des variables d'environnement
 
@@ -90,6 +92,7 @@ Dans le dossier `back-end`, exécutez :
 ```bash
 cd back-end
 npm start
+```
 
 Le back-end sera démarré sur le port défini dans votre fichier .env (par défaut : 8082).
 
