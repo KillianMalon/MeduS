@@ -138,7 +138,7 @@ const Publications = () => {
                 return post;
             });
     
-            setPosts([...updatedPosts]);
+            setPosts(updatedPosts);
     
         } catch (error) {
             console.error('Erreur lors de l\'action de like/unlike :', error);

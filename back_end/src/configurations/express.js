@@ -19,7 +19,6 @@ export async function configure (app) {
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
 
-    // app.use('/', authRoutes)
     app.use('/auth', authRoutes)
     app.use('/post', postRoutes)
     app.use ('/profile', profileRoutes)
